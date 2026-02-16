@@ -60,4 +60,35 @@ pip install click
 ⚙️ הגדרות התעלמות (.witignore)
 ניתן ליצור קובץ בשם .witignore בתיקייה הראשית. כל שם של קובץ או תיקייה שייכתב בו (שורה אחת לכל שם) לא ייכנס למערכת בקרת הגרסאות בעת ביצוע פקודת add.
 
+🔍 Example Scenarios
+Step 1: Initialize the repository
+Bash
+python wit.py init
+# Output: Initialized empty WIT repository in .wit/
+Step 2: Add files to staging
+Bash
+# Create a file
+echo "Hello World" > hello.txt
+# Add it
+python wit.py add hello.txt
+# Output: Added hello.txt to staging area.
+Step 3: Check status
+Bash
+python wit.py status
+# Output: 
+# --- Status ---
+# Files staged for commit:
+#   (staged): hello.txt
+# Untracked files:
+#   (none)
+Step 4: Create a commit
+Bash
+python wit.py commit -m "Initial commit"
+# Output: Created commit a1b2c3d4: Initial commit
+# Staging area cleared.
+Step 5: Checkout (Going back in time)
+Bash
+python wit.py checkout a1b2c3d4
+# Output: Switched to commit a1b2c3d4.
+
 מפותח על ידי סטודנטיות למדעי המחשב - שנה ב'.
