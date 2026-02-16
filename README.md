@@ -91,4 +91,4 @@ Bash
 python wit.py checkout a1b2c3d4
 # Output: Switched to commit a1b2c3d4.
 
-מפותח על ידי סטודנטיות למדעי המחשב - שנה ב'.
+מפותח על ידי סטודנטיות למדעי המחשב (תמר רותן, שירה שמש,אילה סמסון)- שנה ב'😀.
