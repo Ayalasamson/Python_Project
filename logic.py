@@ -3,7 +3,6 @@ import shutil
 import uuid
 from datetime import datetime
 
-# הגדרת נתיבים קבועים
 WIT_DIR = ".wit"
 STAGING_DIR = os.path.join(WIT_DIR, "staging")
 COMMITS_DIR = os.path.join(WIT_DIR, "commits")
@@ -52,32 +51,30 @@ def add(path):
         add_to_staging(path)
     print(f"Added {path} to staging area.")
 
-
 def commit(message="No message provided"):
     if not os.path.exists(STAGING_DIR) or not os.listdir(STAGING_DIR):
         print("Nothing to commit, staging area is empty.")
         return
 
-    # 1. יצירת מזהה וביצוע הקומיט (העתקה לתיקיית ה-commits)
     commit_id = str(uuid.uuid4())[:8]
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     commit_path = os.path.join(COMMITS_DIR, commit_id)
 
     shutil.copytree(STAGING_DIR, commit_path)
 
-    # 2. שמירת המטא-דאטה
+    #  שמירת המטא-דאטה
     with open(os.path.join(commit_path, ".metadata"), "w") as f:
         f.write(f"Message: {message}\n")
         f.write(f"Timestamp: {timestamp}\n")
 
-    # 3.    ניקוי תיקיית ה-staging
+    # ניקוי תיקיית ה-staging
     #  עוברים על כל מה שיש ב-staging ומוחקים אותו
     for item in os.listdir(STAGING_DIR):
         item_path = os.path.join(STAGING_DIR, item)
         if os.path.isdir(item_path):
             shutil.rmtree(item_path)  # מחיקת תיקייה
         else:
-            os.remove(item_path)  # מחיקת קובץ
+            os.remove(item_path) 
 
     print(f"Created commit {commit_id}: {message}")
     print("Staging area cleared.")
@@ -95,7 +92,7 @@ def status():
             rel_path = os.path.relpath(os.path.join(root, file), STAGING_DIR)
             staged_files.append(rel_path)
 
-    # מציאת קבצים בתיקיית העבודה שאינם ב-Staging (Untracked)
+    # מציאת קבצים בתיקיית העבודה שאינם ב-Staging
     working_files = []
     for root, dirs, files in os.walk("."):
         if any(ignored in root for ignored in ignore_list): continue
