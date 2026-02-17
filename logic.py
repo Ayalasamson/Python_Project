@@ -70,8 +70,8 @@ def commit(message="No message provided"):
         f.write(f"Message: {message}\n")
         f.write(f"Timestamp: {timestamp}\n")
 
-    # 3. הפתרון לבעיה שלך: ניקוי תיקיית ה-staging
-    # אנחנו עוברים על כל מה שיש ב-staging ומוחקים אותו
+    # 3.    ניקוי תיקיית ה-staging
+    #  עוברים על כל מה שיש ב-staging ומוחקים אותו
     for item in os.listdir(STAGING_DIR):
         item_path = os.path.join(STAGING_DIR, item)
         if os.path.isdir(item_path):
