@@ -9,6 +9,8 @@ wit.py (The Interface): אחראי על ממשק המשתמש (CLI) באמצעו
 logic.py (The Engine): מכיל את כל המימוש הטכני - ניהול קבצים, העתקות רקרסיביות, יצירת קומיטים ייחודיים ושחזור גרסאות.
 
 📋 פקודות זמינות
+לצורך אתחול הפרויקט והפעלות כתבו בשורת הפקודה:
+pip install -r requirements.txt
 1. אתחול המערכת (init)
 יוצר את התשתית הנדרשת לפעילות המערכת: תיקיית .wit הכוללת את אזור ה-Staging ותיקיית הקומיטים.
 
