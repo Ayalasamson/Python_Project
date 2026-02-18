@@ -1,66 +1,66 @@
 🛠 WIT - Python Version Control System
-WIT היא מערכת לניהול גרסאות (VCS) קלת משקל שנכתבה בפייתון. הפרויקט מדמה את פעולות הליבה של Git, ומאפשר למשתמשים לנהל מעקב אחר שינויים בקבצים בצורה פשוטה ויעילה דרך שורת הפקודה.
+WIT is a lightweight version control system (VCS) written in Python. The project simulates the core operations of Git, allowing users to track changes to files in a simple and efficient way via the command line.
 
-🏗 ארכיטקטורת המערכת
-הפרויקט נבנה תוך הקפדה על הפרדת רשויות (Separation of Concerns):
+🏗 System architecture
+The project was built with strict attention to separation of concerns:
 
-wit.py (The Interface): אחראי על ממשק המשתמש (CLI) באמצעות ספריית click. הוא משמש כ"שלד" הפקודות ומנתב את המשתמש לביצוע הלוגיקה.
+wit.py (The Interface): Responsible for the user interface (CLI) using the click library. It serves as the "skeleton" of commands and guides the user to execute the logic.
 
-logic.py (The Engine): מכיל את כל המימוש הטכני - ניהול קבצים, העתקות רקרסיביות, יצירת קומיטים ייחודיים ושחזור גרסאות.
+logic.py (The Engine): Contains all the technical implementation - file management, recursive copies, creating unique commits and version recovery.
 
-📋 פקודות זמינות
-לצורך אתחול הפרויקט והפעלות כתבו בשורת הפקודה:
+📋 Available commands
+To initialize the project and run it, type in the command line:
 pip install -r requirements.txt
-1. אתחול המערכת (init)
-יוצר את התשתית הנדרשת לפעילות המערכת: תיקיית .wit הכוללת את אזור ה-Staging ותיקיית הקומיטים.
+1. Initialize the system (init)
+Creates the infrastructure required for system operation: a .wit folder that includes the Staging area and the commit folder.
 
 Bash
 python wit.py init
-2. הוספת קבצים (add)
-מעתיק קבצים או תיקיות שלמות לתוך אזור ה-Staging.
+2. Add files (add)
+Copies files or entire folders into the Staging area.
 
-המערכת תומכת בהוספה רקרסיבית.
+The system supports recursive addition.
 
-המערכת מתעלמת מקבצים המוגדרים ב-.witignore או מקבצי מערכת (כמו venv).
+The system ignores files defined in .witignore or system files (such as venv).
 
 Bash
 python wit.py add <path_to_file_or_folder>
-# או להוספת כל התיקייה הנוכחית:
+# Or to add the entire current folder:
 python wit.py add .
-3. יצירת גרסה (commit)
-שומר את המצב הנוכחי של ה-Staging כגרסה קבועה.
+3. Create a version (commit)
+Saves the current state of the Staging as a permanent version.
 
-ייחודיות: כל קומיט מקבל מזהה ייחודי (ID) קצר שנוצר באמצעות UUID.
+Uniqueness: Each commit receives a short unique identifier (ID) generated using a UUID.
 
-ניקוי אוטומטי: לאחר הקומיט, אזור ה-Staging מתנקה כדי למנוע כפילויות.
+Automatic cleanup: After the commit, the staging area is cleaned up to prevent duplicates.
 
-אופציונלי: ניתן להוסיף הודעה המתארת את השינוי.
+Optional: You can add a message describing the change.
 
 Bash
 python wit.py commit -m "Your descriptive message"
-# או ללא הודעה (ישתמש בברירת מחדל):
+# Or without a message (will use the default):
 python wit.py commit
-4. בדיקת סטטוס (status)
-מציג אילו קבצים ממתינים כרגע ב-Staging וטרם נשמרו בקומיט.
+4. Check status
+Shows which files are currently waiting in Staging and have not yet been committed.
 
 Bash
 python wit.py status
-5. שחזור גרסה (checkout)
-מאפשר "לחזור בזמן". הפקודה מוחקת את קבצי העבודה הנוכחיים ומשחזרת אותם בדיוק כפי שהיו בקומיט הספציפי שנבחר.
+5. Checkout
+Allows you to "go back in time". The command deletes the current working files and restores them exactly as they were in the specific commit selected.
 
 Bash
 python wit.py checkout <commit_id>
-🛠 דרישות והתקנה
-וודאו שמותקן אצלכן פייתון (גרסה 3.7 ומעלה).
+🛠 Requirements and installation
+Make sure you have Python installed (version 3.7 or higher).
 
-התקינו את התלות היחידה של הפרויקט:
+Install the project's only dependency:
 
 Bash
 pip install click
-וודאו שהקבצים wit.py ו-logic.py נמצאים תמיד באותה התיקייה.
+Make sure that the wit.py and logic.py files are always in the same folder.
 
-⚙️ הגדרות התעלמות (.witignore)
-ניתן ליצור קובץ בשם .witignore בתיקייה הראשית. כל שם של קובץ או תיקייה שייכתב בו (שורה אחת לכל שם) לא ייכנס למערכת בקרת הגרסאות בעת ביצוע פקודת add.
+⚙️ Ignore Settings (.witignore)
+You can create a file named .witignore in the main folder. Any file or folder name written in it (one line per name) will not be entered into the version control system when executing the add command.
 
 🔍 Example Scenarios
 Step 1: Initialize the repository
@@ -77,12 +77,12 @@ python wit.py add hello.txt
 Step 3: Check status
 Bash
 python wit.py status
-# Output: 
+# Output:
 # --- Status ---
 # Files staged for commit:
-#   (staged): hello.txt
+# (staged): hello.txt
 # Untracked files:
-#   (none)
+# (none)
 Step 4: Create a commit
 Bash
 python wit.py commit -m "Initial commit"
@@ -93,4 +93,4 @@ Bash
 python wit.py checkout a1b2c3d4
 # Output: Switched to commit a1b2c3d4.
 
-מפותח על ידי סטודנטיות למדעי המחשב (תמר רותן, שירה שמש,אילה סמסון)- שנה ב'😀.
+Developed by Computer Science students (Tamar Rothen, Shira Shemesh, Ayla Samson) - 2nd year😀.
